@@ -920,7 +920,7 @@ export const Footer = () => {
 
           <div className="container mx-auto px-4 flex items-center justify-center text-[15px]">
             <div>
-              <span>Copyright © 2023, Lexura Domains - A Division of Lexura, Inc®.</span>
+              <span>Copyright © 2025, Lexura Domains - A Division of Lexura, Inc®.</span>
               <span className="ml-1">All rights reserved.</span>
             </div>
           </div>
