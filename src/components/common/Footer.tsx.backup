@@ -1,0 +1,962 @@
+import React, { useState } from "react";
+
+import { Link } from "react-router-dom";
+
+import "boxicons-react/styles";
+
+import { FaFacebook, FaYoutube, FaWhatsapp, FaInstagram, FaTiktok, FaWeixin, FaTelegram, FaFacebookMessenger, FaSnapchat, FaReddit, FaPinterest, FaTwitter, FaMicrosoft, FaLinkedin, FaVimeo, FaTwitch, FaDiscord, FaTumblr, FaSkype, FaVk, FaMedium, FaBlogger, FaDribbble, FaWeibo, FaBrain, FaChevronDown } from 'react-icons/fa';
+
+import metamaskLogo from "@/assets/metamask-logo.webp";
+const web3Image = "/vecteezy_web-3-0.png";
+// import web3Image from "@/assets/logo/wb3finallll.jpg";
+
+// import web3Image from "@/assets/web3.png"
+
+import {
+
+  SiQuora, SiThreads, SiLine, SiRumble, SiMeituan, SiBadoo, SiBilibili, SiDouban, SiBaidu,
+
+  SiXiaohongshu, SiZhihu, SiMeetup, SiNextdoor, SiRenren, SiXing,
+
+  SiMastodon, SiKuaishou, SiBluesky, SiLivejournal, SiViber, SiTinder, SiClubhouse
+
+} from 'react-icons/si';
+
+import { VisaLogo, MastercardLogo, AmexLogo, DiscoverLogo, PayPalLogo, ApplePayLogo, StripeLogo, BitcoinLogo, EthereumLogo, CoinbaseLogo } from './PaymentLogos';
+
+
+
+// Function to get icon for social media name
+
+const getIcon = (name: string) => {
+
+  switch (name) {
+
+    case 'Facebook': return <FaFacebook className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'YouTube': return <FaYoutube className="w-[18px] h-[18px] text-red-600" />;" />;
+
+    case 'WhatsApp': return <FaWhatsapp className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Instagram': return <FaInstagram className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'TikTok': return <FaTiktok className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'WeChat': return <FaWeixin className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Telegram': return <FaTelegram className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Messenger': return <FaFacebookMessenger className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Snapchat': return <FaSnapchat className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Reddit': return <FaReddit className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Pinterest': return <FaPinterest className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'X (Twitter)': return <FaTwitter className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Teams': return <FaMicrosoft className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'LinkedIn': return <FaLinkedin className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Vimeo': return <FaVimeo className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Twitch': return <FaTwitch className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Discord': return <FaDiscord className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Tumblr': return <FaTumblr className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Skype': return <FaSkype className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Vkontakte': return <FaVk className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Medium': return <FaMedium className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Blogger': return <FaBlogger className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Dribbble': return <FaDribbble className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Weibo': return <FaWeibo className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Quora': return <SiQuora className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Threads': return <SiThreads className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Line': return <SiLine className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Rumble': return <SiRumble className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Meituan-Dianping': return <SiMeituan className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Badoo': return <SiBadoo className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Bilibili': return <SiBilibili className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Douban': return <SiDouban className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Baidu Tieba': return <SiBaidu className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Xiaohongshu (Little Red Book)': return <SiXiaohongshu className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Zhihu': return <SiZhihu className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Meetup': return <SiMeetup className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Nextdoor': return <SiNextdoor className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Renren': return <SiRenren className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Xing': return <SiXing className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Mastodon': return <SiMastodon className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Kuaishou': return <SiKuaishou className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Bluesky': return <SiBluesky className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Live Journal': return <SiLivejournal className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Viber': return <SiViber className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Tinder': return <SiTinder className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'Clubhouse': return <SiClubhouse className="w-[18px] h-[18px] text-blue-600" />;
+
+    case 'DeepSeek': return <FaBrain className="w-[18px] h-[18px] text-blue-600" />;
+
+    // REMOVED: Non-existent icons SiDouyin, SiQq, SiQzone, SiNing
+
+    default: return <span className="text-blue-600 text-xs">{name}</span>;
+
+  }
+
+};
+
+
+
+// --- Helpers for Section 1 (Light Multi-Column Footer) ---
+
+
+
+const MultiColumnLink = ({ to, children, className = "" }: {
+
+  to: string;
+
+  children: React.ReactNode;
+
+  className?: string;
+
+}) => (
+
+  <Link to={to} className={`text-[#888a98] hover:text-[#888a98] hover:underline text-sm sm:text-[15px] mb-1 whitespace-nowrap ${className}`} style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>
+
+    {children}
+
+  </Link>
+
+);
+
+
+
+const MultiColumnTitle = ({ children }: { children: React.ReactNode }) => (
+
+  <h3 className="text-white font-bold text-base mb-2 whitespace-nowrap">
+
+    {children}
+
+  </h3>
+
+);
+
+
+
+const MultiColumnSubTitle = ({ children }: { children: React.ReactNode }) => (
+
+  <h4 className="text-white  font-semibold text-sm mt-4 mb-2">
+
+    {children}
+
+  </h4>
+
+);
+
+
+
+const MultiColumnText = ({ children }: { children: React.ReactNode }) => (
+
+  <p className="text-[#888a98] text-[15px] mb-1 mt-4">
+
+    {children}
+
+  </p>
+
+);
+
+
+
+// --- Helpers for Section 2 (Dark Row-Based Footer) ---
+
+
+
+const RowLink = ({ to, children }: { to: string, children: React.ReactNode }) => (
+
+  <Link to={to} className="text-blue-600 hover:text-gray-300 hover:underline whitespace-nowrap">
+
+    {children}
+
+  </Link>
+
+);
+
+
+
+
+
+// --- Main Combined Footer Component ---
+
+
+
+export const Footer = () => {
+
+  const [memberDropdown, setMemberDropdown] = useState(true);
+
+  const [collectionDropdown, setCollectionDropdown] = useState(true);
+
+ 
+
+  // --- Data for Section 2 ---
+
+  const connectLinks = [
+
+    { name: "Facebook", path: "/" },
+
+    { name: "YouTube", path: "/" },
+
+    { name: "WhatsApp", path: "/" },
+
+    { name: "Instagram", path: "/" },
+
+    { name: "TikTok", path: "/" },
+
+    { name: "WeChat", path: "/" },
+
+    { name: "Telegram", path: "/" },
+
+    { name: "Messenger", path: "/" },
+
+    { name: "Snapchat", path: "/" },
+
+    { name: "Reddit", path: "/" },
+
+    { name: "Pinterest", path: "/" },
+
+    { name: "X (Twitter)", path: "/" },
+
+    { name: "Quora", path: "/" },
+
+    { name: "Teams", path: "/" },
+
+    { name: "LinkedIn", path: "/" },
+
+    { name: "Vimeo", path: "/" },
+
+    { name: "Threads", path: "/" },
+
+    { name: "Twitch", path: "/" },
+
+    { name: "Discord", path: "/" },
+
+    { name: "Line", path: "/" },
+
+    { name: "Tumblr", path: "/" },
+
+    { name: "DeepSeek", path: "/" },
+
+    { name: "Vkontakte", path: "/" },
+
+    { name: "Rumble", path: "/" },
+
+    { name: "Medium", path: "/" }
+
+  ];
+
+
+
+  // Split into two balanced rows
+
+  const half = Math.ceil(connectLinks.length / 2);
+
+  const connectLinksRow1 = connectLinks.slice(0, half);
+
+  const connectLinksRow2 = connectLinks.slice(half);
+
+
+
+  const businessLinks = [
+
+    { name: "Rushcape, Inc®", path: "/" }, { name: "RushTube, Inc®", path: "/" },
+
+    { name: "Lexura, Inc®", path: "/" }
+
+  ];
+
+
+
+  const regionalLinks = [
+
+    { name: "Africa", path: "/" }, { name: "Americas", path: "/" }, { name: "Asia", path: "/" },
+
+    { name: "Caribbean", path: "/" }, { name: "Central America", path: "/" }, { name: "Europe", path: "/" },
+
+    { name: "Latin America", path: "/" }, { name: "Mediterranean", path: "/" }, { name: "Middle East", path: "/" },
+
+    { name: "North America", path: "/" }, { name: "Oceania", path: "/" }, { name: "Pacific Rim", path: "/" },
+
+    { name: "Polar Regions", path: "/" }, { name: "South America", path: "/" }, { name: "UK", path: "/" },
+
+    { name: "USA", path: "/" }, { name: "UAE", path: "/" }, { name: "Canada", path: "/" }, { name: "India", path: "/" },
+
+    { name: "China", path: "/" }, { name: "Russia", path: "/" }, { name: "Japan", path: "/" }, { name: "Italy", path: "/" },
+
+    { name: "Germany", path: "/" }, { name: "Spain", path: "/" }, { name: "France", path: "/" },
+
+    { name: "Portugal", path: "/" }, { name: "Greece", path: "/" }, { name: "Hungary", path: "/" },
+
+    { name: "Turkey", path: "/" }, { name: "Poland", path: "/" }, { name: "Ukraine", path: "/" },
+
+    { name: "Austria", path: "/" }, { name: "Belgium", path: "/" }, { name: "Sweden", path: "/" },
+
+    { name: "Denmark", path: "/" }, { name: "Finland", path: "/" }, { name: "Switzerland", path: "/" },
+
+    { name: "Australia", path: "/" }, { name: "Mexico", path: "/" }, { name: "Brazil", path: "/" },
+
+    { name: "Venezuela", path: "/" }, { name: "Argentina", path: "/" }, { name: "Columbia", path: "/" },
+
+    { name: "Bangladesh", path: "/" }, { name: "Indonesia", path: "/" }, { name: "Malaysia", path: "/" },
+
+    { name: "Thailand", path: "/" }, { name: "Philippines", path: "/" }, { name: "Vietnam", path: "/" },
+
+    { name: "South Korea", path: "/" }, { name: "North Korea", path: "/" }, { name: "Iran", path: "/" },
+
+    { name: "Iraq", path: "/" }, { name: "Afghanistan", path: "/" }, { name: "Pakistan", path: "/" },
+
+    { name:"Saudi Arabia", path: "/" }, { name: "Egypt", path: "/" }, { name: "Ethiopia", path: "/" },
+
+    { name: "South Africa", path: "/" }
+
+  ];
+
+
+
+  const worldLinks = [
+
+    { name: "English", path: "/" }, { name: "Français", path: "/" }, { name: "Español", path: "/" },
+
+    { name: "Português", path: "/" }, { name: "Deutsch", path: "/" }, { name: "Italiano", path: "/" },
+
+    { name: "Català", path: "/" }, { name: "Русский", path: "/" }, { name: "Polski", path: "/" },
+
+    { name: "Čeština", path: "/" }, { name: "Slovenian", path: "/" }, { name: "Dutch", path: "/" },
+
+    { name: "Ελληνικά", path: "/" }, { name: "Türkçe", path: "/" }, { name: "Български", path: "/" },
+
+    { name: "Magyar", path: "/" }, { name: "فارسی", path: "/" }, { name: "Hrvatski", path: "/" },
+
+    { name: "Română", path: "/" }, { name: "Українська", path: "/" }, { name: "Dansk", path: "/" },
+
+    // --- THIS WAS THE LINE WITH THE ERROR ---
+
+    { name: "Suomi", path: "/" }, { name: "Gaeilge", path: "/" }, { name: "Íslenska", path: "/" },
+
+    { name: "中文", path: "/" }, { name: "日本語", path: "/" }, { name: "한국어", path: "/" },
+
+    { name: "Tiếng Việt", path: "/" }, { name: "ภาษาไทย", path: "/" }, { name: "Filipino", path: "/" },
+
+    { name: "Tagalog", path: "/" }, { name: "Indonesian", path: "/" }, { name: "Afrikaans", path: "/" },
+
+    { name: "العربية", path: "/" }, { name: "עברית", path: "/" }, { name: "اردو", path: "/" },
+
+    { name: "हिन्दी", path: "/" }, { name: "தமிழ்", path: "/" }, { name: "తెలుగు", path: "/" },
+
+    { name: "বাংলা", path: "/" }, { name: "ਪੰਜਾਬੀ", path: "/" }, { name: "ગુજરાતી", path: "/" },
+
+    { name: "Melayu", path: "/" }, { name: "മലയാളം", path: "/" }, { name: "සිංհල", path: "/" }
+
+  ];
+
+ 
+
+  const paymentIcons = [
+
+    <VisaLogo />,
+
+    <MastercardLogo />,
+
+    <AmexLogo />,
+
+    <DiscoverLogo />,
+
+    <PayPalLogo />,
+
+    <ApplePayLogo />,
+
+    <StripeLogo />,
+
+    <BitcoinLogo />,
+
+    <EthereumLogo />,
+
+    <CoinbaseLogo />
+
+  ];
+
+
+
+
+
+  return (
+
+    <footer>
+
+      {/* SECTION 1: Multi-Column Footer (FIXED: Light Theme) */}
+
+      <section className="relative bg-[#1C1C1C] pt-6 sm:pt-8 pb-2 sm:pb-4 border-t border-gray-200">
+
+        <div className="container mx-auto px-4">
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 sm:gap-x-6 md:gap-x-8 gap-y-6 sm:gap-y-8">
+
+
+
+            {/* Column 1: Company */}
+
+            <div>
+
+              <h4 className="font-bold text-xs sm:text-sm mb-1 whitespace-nowrap text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>COMPANY</h4>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">About Us</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Press Releases</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Jobs & Careers</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Executive Team</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Ethics and Values</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Investor Relations</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Business Locations</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Hours of Operation</MultiColumnLink></li>
+
+              </ul>
+
+            </div>
+
+
+
+            {/* Column 2: Our Services */}
+
+            <div>
+
+              <h4 className="font-bold text-xs sm:text-sm mb-1 whitespace-nowrap text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>OUR SERVICES</h4>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">Cloud Web3 Hosting</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Tokenomics Advisory</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">API & White-Label Solutions</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Web3 App & SaaS Consultancy</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Web3 Compliance & Legal Pack</MultiColumnLink></li>
+
+              </ul>
+
+            </div>
+
+
+
+            {/* Column 3: LD Marketplace */}
+
+            <div>
+
+              <h4 className="font-bold text-xs sm:text-sm mb-1 whitespace-nowrap text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>LD MARKETPLACE</h4>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">Domain Leasing</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Browse Domains</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Sell Your Domain</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Premium Listings</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Seller Dashboard</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">AI Domain Generator</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Admin Console Dashboard</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">AI Business Name Generator</MultiColumnLink></li>
+
+              </ul>
+
+              <h5 className="font-semibold text-xs sm:text-sm mt-2 mb-1 text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>PARTNER WITH LD</h5>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">Advertise with Us</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Affiliate / Reseller</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">International Reseller</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Become a LD Member</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Submission Guidelines</MultiColumnLink></li>
+
+              </ul>
+
+            </div>
+
+
+
+            {/* Column 4: My LD (with "ditto" layout) */}
+
+            <div>
+
+              <h4 className="font-bold text-xs sm:text-sm mb-1 whitespace-nowrap text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>MY LD</h4>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">My Wallet</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Profile</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Account</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Reviews</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Domains</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Favorites</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Switch Account</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Permissions</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">RushTube's App</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Membership</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Notifications</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Subscriptions</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Payment Methods</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Credit Balance</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Order Cancellations</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Account Security</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">My Browsing History</MultiColumnLink></li>
+
+                <li><p className="text-[#888a98] text-sm sm:text-[15px] mb-1">Coupons & Discounts</p></li>
+
+                <li><div className="flex items-center gap-1 cursor-pointer" onClick={() => setMemberDropdown(!memberDropdown)}>                      <h6 className="text-[#888a98] font-semibold text-sm sm:text-[15px] mb-1">Member's Exclusives</h6><FaChevronDown className="w-4 h-4 text-[#888a98]" /></div>
+
+                  {memberDropdown && <ul className="ml-4">
+
+                    <li className="flex items-center mb-1">
+
+                      <span className="text-white text-sm">•</span>
+
+                      <MultiColumnLink to="/" className="ml-2">Lexura Family</MultiColumnLink>
+
+                    </li>
+
+                    <li className="flex items-center mb-1">
+
+                      <span className="text-white text-sm">•</span>
+
+                      <MultiColumnLink to="/" className="ml-2">Rushcape Family</MultiColumnLink>
+
+                    </li>
+
+                    <li className="flex items-center mb-1">
+
+                      <span className="text-white text-sm">•</span>
+
+                      <MultiColumnLink to="/" className="ml-2">RushTube Family</MultiColumnLink>
+
+                    </li>
+
+                  </ul>
+
+                  }
+
+                </li>
+
+                <li><div className="flex items-center gap-1 cursor-pointer" onClick={() => setCollectionDropdown(!collectionDropdown)}><h6 className="text-[#888a98] font-semibold text-sm sm:text-[15px] mb-1">LD Curated Collections</h6><FaChevronDown className="w-4 h-4 text-[#888a98]" /></div>
+
+                  {collectionDropdown && <ul className="ml-4">
+
+                    <li className="flex items-center mb-1">
+
+                      <span className="text-white text-sm">•</span>
+
+                      <MultiColumnLink to="/" className="ml-2">DNS Collections</MultiColumnLink>
+
+                    </li>
+
+                    <li className="flex items-center mb-1">
+
+                      <span className="text-white text-sm">•</span>
+
+                      <MultiColumnLink to="/" className="ml-2">Web3 Collections</MultiColumnLink>
+
+                    </li>
+
+                  </ul>
+
+                  }
+
+                </li>
+
+              </ul>
+
+            </div>
+
+
+
+            {/* Column 5: Support */}
+
+            <div>
+
+              <h4 className="font-bold text-xs sm:text-sm mb-1 whitespace-nowrap text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>SUPPORT</h4>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">Live Chat</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Help Desk</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Contact Us</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Report A Bug/Spam</MultiColumnLink></li>
+
+              </ul>
+
+              <h5 className="font-semibold text-xs sm:text-sm mt-2 mb-1 text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>COMMUNITY</h5>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">Blogs</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Forums</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">RushVoice</MultiColumnLink></li>
+
+              </ul>
+
+              <h5 className="font-semibold text-xs sm:text-sm mt-2 mb-1 text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>RESOURCES</h5>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">FAQs</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Media</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Guides</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Articles</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Tutorials</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Reference</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Knowledgebase</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Helpful Weblinks</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">News and Events</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Media Listing Policy</MultiColumnLink></li>
+
+              </ul>
+
+            </div>
+
+
+
+            {/* Column 6: Legal */}
+
+            <div>
+
+              <h4 className="font-bold text-xs sm:text-sm mb-1 whitespace-nowrap text-white" style={{ fontFamily: '"Satoshi Variable Medium", sans-serif' }}>LEGAL</h4>
+
+              <ul>
+
+                <li><MultiColumnLink to="/">Enquiry</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">API Policy</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Terms of Use</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Privacy Policy</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Cookie Notice</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Copyright Policy</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">License Summary</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Interest-Based Ads</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Media Listing Policy</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Domain Listing Policy</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">User Information Legal</MultiColumnLink></li>
+
+                <li><MultiColumnLink to="/">Intellectual Property Rights</MultiColumnLink></li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+
+        {/* Web3 Logo at Bottom Left Corner */}
+        <div className="absolute bottom-4 left-4 flex-shrink-0">
+          <img 
+            src={web3Image} 
+            alt="Web 3.0" 
+            className="h-52 sm:h-56 w-auto rounded-md opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+          />
+        </div>
+
+        {/* MetaMask Logo at Bottom Right Corner */}
+        <div className="absolute bottom-4 right-4 flex-shrink-0">
+          <img 
+            src={metamaskLogo} 
+            alt="MetaMask" 
+            className="h-12 sm:h-16 w-auto opacity-90 hover:opacity-100 transition-opacity cursor-pointer"
+          />
+        </div>
+
+      </section>
+
+
+
+      {/* SECTION 2: Row-Based Footer (Dark Theme) */}
+
+      <section className="relative bg-[#202224] text-white border-t border-gray-700">
+
+        <div className="container mx-auto px-4 py-4">
+
+         
+
+          {/* --- Connect with Us: single horizontal row --- */}
+
+          <div className="mb-4 text-[17px] leading-relaxed">
+
+            <div className="flex items-center gap-3 overflow-x-auto no-scrollbar py-1">
+
+              <span className="font-semibold text-[#D7D7D7] mr-2 whitespace-nowrap">Connect with Us: </span>
+
+              <div className="flex gap-3 items-center">
+
+                {connectLinks.map((link, index) => (
+
+                  <RowLink to={link.path} key={link.name + index}>
+
+                    {getIcon(link.name)}
+
+                  </RowLink>
+
+                ))}
+
+              </div>
+
+            </div>
+
+          </div>
+
+          {/* --- END MODIFICATION --- */}
+
+
+
+
+
+          {/* --- MODIFIED: Row 2: Businesses (Removed More >>) --- */}
+
+          <div className="mb-4 text-[17px] leading-relaxed">
+
+            <span className="font-semibold text-[#D7D7D7]">Businesses: </span>
+
+            <div className="flex flex-wrap">
+
+              {businessLinks.map((link, index) => (
+
+                <div key={link.name} className="flex items-center">
+
+                  <RowLink to={link.path}>{link.name}</RowLink>
+
+                  {index < businessLinks.length - 1 && " - "}
+
+                </div>
+
+              ))}
+
+              <div className="flex items-center ml-2">
+
+                <span className="text-red-500 inline-flex items-center"> More<span className="ml-1">&gt;&gt;</span></span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          {/* --- MODIFIED: Row 3: Regional (Removed More >>) --- */}
+
+          <div className="mb-4 text-[17px] leading-relaxed">
+
+            <span className="font-semibold text-[#D7D7D7]">Regional: </span>
+
+            <div className="flex flex-wrap">
+
+              {regionalLinks.map((link, index) => (
+
+                <div key={link.name} className="flex items-center">
+
+                  <RowLink to={link.path}>{link.name}</RowLink>
+
+                  {index < regionalLinks.length - 1 && <span style={{margin: '0 4px', fontSize: '80%', verticalAlign: 'middle'}}>|</span>}
+
+                </div>
+
+              ))}
+
+              <div className="flex items-center ml-2">
+
+                <span className="text-red-500 inline-flex items-center">More<span className="ml-1">&gt;&gt;</span></span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          {/* --- MODIFIED: Row 4: World (Removed More >>) --- */}
+
+          <div className="mb-4 text-[17px] leading-relaxed">
+
+            <span className="font-semibold text-[#D7D7D7]">World: </span>
+
+            <div className="flex flex-wrap">
+
+              {worldLinks.map((link, index) => (
+
+                <div key={link.name} className="flex items-center">
+
+                  <RowLink to={link.path}>{link.name}</RowLink>
+
+                  {index < worldLinks.length - 1 && <span style={{margin: '0 4px', fontSize: '80%', verticalAlign: 'middle'}}>|</span>}
+
+                </div>
+
+              ))}
+
+              <div className="flex items-center ml-2">
+
+                <span className="text-red-500 inline-flex items-center">More<span className="ml-1">&gt;&gt;</span></span>
+
+              </div>
+
+            </div>
+
+          </div>
+
+
+
+          {/* "We Accept" section */}
+
+          <div className="mt-4 flex justify-end items-center gap-2 text-sm text-white">
+
+            <span className="font-bold">We Accept:</span>
+
+            <div className="flex items-center gap-1.5">
+
+              {paymentIcons.map((icon, index) => (
+
+                <div key={index}>
+
+                  {icon}
+
+                </div>
+
+              ))}
+
+            </div>
+
+          </div>
+
+
+
+        </div>
+
+
+
+        {/* Bottom Bar (Teal texture) */}
+
+        <div className="
+
+          bg-[#2D2D2D] text-white py-2 border-t border-[#333B47]
+
+          [background-image:linear-gradient(rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.04)_1px,transparent_1px)]
+
+          [background-size:3px_3px]
+
+        ">
+
+        <div className="container mx-auto px-4 flex items-center justify-center text-[15px]">
+
+          <div>
+
+            <span>Copyright © 2023, Lexura Domains - A Division of Lexura, Inc®.</span><span style={{marginLeft: '1px'}}>All rights reserved.</span>
+
+          </div>
+
+        </div>        </div>
+
+      </section>
+
+     
+
+
+      {/* SECTION 2: Row-Based Footer (Dark Theme) */}
+
+    </footer>
+
+  );
+
+};

@@ -1,0 +1,457 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 24%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 24%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 24%;
+
+    --primary: 0 0% 24%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 0 0% 24%;
+
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 24%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 142 71% 45%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 9%;
+
+    --border: 0 0% 85%;
+    --input: 0 0% 90%;
+    --ring: 0 0% 24%;
+
+    --radius: 0.3rem;
+
+    --gradient-primary: hsl(0 0% 24%);
+    --gradient-hero: hsl(0 0% 98%);
+    --gradient-card: hsl(0 0% 100%);
+    --gradient-dark: hsl(0 0% 24%);
+
+    /* Header 3D Gradients */
+    --header-bg-start: 0 0% 100%;
+    --header-bg-end: 0 0% 95%;
+    --header-glow: 0 0% 24%;
+    --header-hover-start: 0 0% 28%;
+    --header-hover-mid: 0 0% 24%;
+    --header-hover-end: 0 0% 32%;
+    --wallet-gradient-start: 0 0% 24%;
+    --wallet-gradient-end: 0 0% 24%;
+
+    --shadow-sm: 0 1px 2px 0 hsl(0 0% 0% / 0.03);
+    --shadow-md: 0 2px 8px 0 hsl(0 0% 0% / 0.06);
+    --shadow-lg: 0 4px 16px 0 hsl(0 0% 0% / 0.08);
+    --shadow-xl: 0 8px 32px 0 hsl(0 0% 0% / 0.1);
+
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-outfit;
+    font-feature-settings: "rlig" 1, "calt" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Global button styling - exclude header, footer, filters sidebar, floating support, and buttons with inline styles */
+  button:not(header button):not(header [role="button"]):not(header [data-radix-navigation-menu-trigger]):not(footer button):not(.filters-sidebar button):not(.floating-support-button):not(.no-global-button):not([style*="background"]):not([style*="backgroundColor"]) {
+    background: #0D4654 !important;
+    color: white !important;
+    border-radius: 0.25rem !important;
+  }
+
+  /* Allow buttons with inline style backgrounds to use their specific colors - NO HOVER */
+  button[style*="backgroundColor"],
+  button[style*="background-color"],
+  button[style*="background:"] {
+    color: white !important;
+    border-radius: 0.25rem !important;
+  }
+
+  /* Completely disable hover effect for buttons with inline background styles */
+  button[style*="backgroundColor"]:hover,
+  button[style*="background-color"]:hover,
+  button[style*="background:"]:hover,
+  .btn-gradient[style*="backgroundColor"]:hover,
+  .btn-gradient[style*="background-color"]:hover {
+    opacity: 1 !important;
+  }
+
+  button:not(header button):not(header [role="button"]):not(header [data-radix-navigation-menu-trigger]):not(footer button):not(.filters-sidebar button):not(.floating-support-button):not([style*="background"]):not([style*="backgroundColor"]):hover {
+    /* Use Tailwind blue-400 for hover to match design: #60A5FA */
+    background: #0D4654 !important;
+    opacity: 0.9;
+    color: white !important;
+  }
+
+  /* Footer button styling - transparent background */
+  footer button {
+    background: none !important;
+    border: none !important;
+    padding: 0 !important;
+    color: hsl(180 100% 70%) !important;
+  }
+
+  /* More specific footer button color override */
+  footer button[class*="text-cyan"] {
+    color: hsl(180 100% 70%) !important;
+  }
+
+  footer button:hover {
+    background: none !important;
+  }
+
+  /* Header navigation buttons - white background, black text */
+  header [data-radix-navigation-menu-trigger] {
+    background: white !important;
+    color: #3d3d3d !important;
+  }
+
+  header [data-radix-navigation-menu-trigger]:hover {
+    background: white !important;
+    color: #3d3d3d !important;
+  }
+
+  header [data-radix-navigation-menu-trigger][data-state="open"] {
+    background: white !important;
+    color: #3d3d3d !important;
+  }
+
+  header [data-radix-navigation-menu-trigger]:active {
+    background: white !important;
+    color: #3d3d3d !important;
+  }
+
+  /* Header ghost buttons (Sign In) - transparent background */
+  header button[class*="ghost"] {
+    background: transparent !important;
+    color: #3d3d3d !important;
+  }
+
+  header button[class*="ghost"]:hover {
+    background: transparent !important;
+  }
+
+  /* Keep specific header buttons with #3d3d3d background */
+  header button[style*="background: #3d3d3d"] {
+    background: #3d3d3d !important;
+    color: white !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+@layer components {
+  .hero-card {
+    @apply bg-card border border-border shadow-sm hover:shadow-md transition-all duration-300;
+  }
+
+  .gradient-text {
+    @apply text-foreground font-bold tracking-tight;
+  }
+
+  .btn-gradient {
+    background: #0D4654;
+    color: white !important;
+    @apply transition-all duration-200 font-medium;
+  }
+
+  /* btn-gradient buttons with inline styles - don't override their background */
+  .btn-gradient[style*="backgroundColor"]:hover,
+  .btn-gradient[style*="background-color"]:hover {
+    opacity: 1 !important;
+  }
+
+  .card-hover {
+    @apply hover:shadow-md transition-all duration-300;
+  }
+
+  .section-title {
+    @apply text-3xl md:text-5xl font-bold text-foreground mb-4 tracking-tight;
+  }
+
+  .hover-scale {
+    @apply transition-transform duration-300 hover:scale-[1.02];
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  .transform-style-3d {
+    transform-style: preserve-3d;
+  }
+
+  .backface-hidden {
+    backface-visibility: hidden;
+  }
+
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  .glass-card {
+    @apply bg-background/95 backdrop-blur-sm border border-border;
+  }
+
+  /* More specific override for the Web3 search button to beat the global button !important rule */
+  /* Broad selector to cover Button wrappers and inner native button elements */
+  .search-web3-button,
+  .search-web3-button:active,
+  .search-web3-button:focus,
+  .search-web3-button[data-state="active"],
+  .search-web3-button>button,
+  .search-web3-button>button:active,
+  .search-web3-button>button:focus,
+  button.search-web3-button,
+  button.search-web3-button:active,
+  button.search-web3-button:focus,
+  button.search-web3-button[data-state="active"] {
+    background: #838D9F !important;
+    color: #ffffff !important;
+    border-radius: 4px !important;
+    box-shadow: none !important;
+  }
+
+  .search-web3-button:hover,
+  .search-web3-button>button:hover,
+  button.search-web3-button:hover {
+    background: #838D9F !important;
+  }
+
+  .search-web3-button[disabled],
+  .search-web3-button>button[disabled],
+  button.search-web3-button[disabled] {
+    opacity: 1 !important;
+    cursor: not-allowed !important;
+  }
+
+  .header-3d-tab {
+    @apply relative text-sm font-semibold text-black/80 transition-all duration-300;
+    text-shadow: none;
+  }
+
+  .header-3d-tab:hover {
+    @apply text-black;
+    transform: translateY(-2px);
+    text-shadow: none;
+    filter: none;
+  }
+
+  .header-3d-tab::after {
+    content: '';
+    @apply absolute -bottom-2 left-0 right-0 h-0.5 rounded-full;
+    background: linear-gradient(90deg,
+        hsl(var(--header-hover-start)),
+        hsl(var(--header-hover-mid)),
+        hsl(var(--header-hover-end)));
+    transform: scaleX(0);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .header-3d-tab:hover::after {
+    transform: scaleX(1);
+  }
+
+  .header-3d-tab.active::after {
+    transform: scaleX(1);
+  }
+
+  /* Remove active/focus background from navigation menu triggers */
+  [data-radix-collection-item][data-state="open"] {
+    background: transparent !important;
+  }
+
+  /* Ensure navigation triggers keep their text color */
+  header [data-radix-navigation-menu-trigger][data-state="open"],
+  header [data-radix-navigation-menu-trigger]:focus,
+  header [data-radix-navigation-menu-trigger]:active {
+    color: #3d3d3d !important;
+    background: white !important;
+  }
+
+  /* Custom slider styling */
+  [data-radix-slider-root] {
+    height: 4px !important;
+  }
+
+  [data-radix-slider-track] {
+    height: 4px !important;
+    background-color: #e5e5e5 !important;
+  }
+
+  [data-radix-slider-range] {
+    background-color: #3d3d3d !important;
+    height: 4px !important;
+  }
+
+  [data-radix-slider-thumb] {
+    width: 16px !important;
+    height: 16px !important;
+    background-color: #3d3d3d !important;
+    border: 2px solid #ffffff !important;
+  }
+}
+
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes wallet {
+
+  0%,
+  100% {
+    transform: perspective(400px) rotateY(0deg);
+  }
+
+  50% {
+    transform: perspective(400px) rotateY(15deg);
+  }
+}
+
+/* --- Nav underline that never blocks text --- */
+.nav-trigger {
+  position: relative;
+  background: transparent !important;
+  color: #3d3d3d !important;
+}
+
+.nav-trigger:hover,
+.nav-trigger:focus,
+.nav-trigger:active,
+.nav-trigger[data-state="open"] {
+  color: #3d3d3d !important;
+  background: transparent !important;
+}
+
+.nav-underline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease, opacity .2s ease;
+  background: linear-gradient(90deg, #111 0%, #666 100%);
+  opacity: .35;
+  pointer-events: none;
+  z-index: 0;
+  /* always behind text */
+}
+
+.nav-trigger:hover .nav-underline,
+.nav-trigger[data-state="open"] .nav-underline {
+  transform: scaleX(1);
+  opacity: .5;
+}
+
+/* Ensure shadcn NavigationMenu triggers stay transparent on open/active */
+nav .NavigationMenuTrigger,
+nav [data-radix-collection-item]>button {
+  background: transparent !important;
+  box-shadow: none !important;
+  color: #3d3d3d !important;
+}
+
+nav .NavigationMenuTrigger:hover,
+nav .NavigationMenuTrigger:focus,
+nav .NavigationMenuTrigger:active,
+nav .NavigationMenuTrigger[data-state="open"],
+nav [data-radix-collection-item]>button:hover,
+nav [data-radix-collection-item]>button:focus,
+nav [data-radix-collection-item]>button:active,
+nav [data-radix-collection-item]>button[data-state="open"] {
+  color: #3d3d3d !important;
+  background: transparent !important;
+}
+
+/* Popover z-index and spacing so panel never covers trigger text */
+[data-radix-popper-content-wrapper] {
+  z-index: 60;
+}
+
+.nav-content {
+  margin-top: 4px;
+  /* tiny gap below trigger */
+}
+
+/* Dark panel styles */
+.nav-panel-dark {
+  background: #3d3d3d !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Light panel styles */
+.nav-panel-light {
+  background: #ffffff !important;
+  border: 1px solid #E5E7EB !important;
+}
+
+/* NFT button underline (safe) */
+.btn-underline {
+  pointer-events: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -2px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.7);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .25s ease, opacity .2s ease;
+  opacity: 0;
+  z-index: 0;
+}
+
+.group:hover .btn-underline {
+  transform: scaleX(1);
+  opacity: 1;
+}

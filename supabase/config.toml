@@ -1,0 +1,10 @@
+project_id = "mdccmwabkibgtpuxngpn"
+
+[functions.analyze-business-plan]
+verify_jwt = false
+
+[functions.create-business-plan-checkout]
+verify_jwt = false
+
+[functions.verify-business-plan-payment]
+verify_jwt = false
